@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Anchor, Mail, Phone, MapPin, Send } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Clearing Agency Nairobi" },
-      { name: "description", content: "Get a quote or speak with our operations team in Nairobi or Mombasa." },
+      { title: "Contact — HolivET Africa" },
+      { name: "description", content: "Get a quote or speak with the HolivET Africa operations team in Nairobi or Mombasa." },
     ],
   }),
   component: Contact,
@@ -29,8 +29,9 @@ function Contact() {
           <div className="mt-10 space-y-5">
             <Item I={MapPin} title="Head office" body="Likoni Road, Industrial Area, Nairobi" />
             <Item I={MapPin} title="Mombasa branch" body="Moi Avenue, near Kilindini Port Gate 18" />
-            <Item I={Phone} title="Operations" body="+254 711 200 300 (24/7)" />
-            <Item I={Mail} title="Quotes & enquiries" body="ops@clearingagency.co.ke" />
+            <Item I={Phone} title="Sales" body="+254 733 917 543" />
+            <Item I={Mail} title="Email" body="sales@holivetafrica.com" />
+            <Item I={Anchor} title="Hours" body="9.00 AM – 10.00 PM" />
           </div>
         </div>
 

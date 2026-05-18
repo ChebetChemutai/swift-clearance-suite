@@ -39,10 +39,10 @@ Vercel will serve static client assets from `dist/client`, and all app routes wi
 
 ### API endpoints
 The frontend can use these backend routes directly:
-- `GET /api/shipments`
-- `GET /api/invoices`
+- `GET /api/admin/shipments`
 - `POST /api/estimate`
 - `GET /api/status`
+- `POST /api/admin/login`
 
 ## Backend integration
 This repo includes a ready-to-use backend stub under `api/`.

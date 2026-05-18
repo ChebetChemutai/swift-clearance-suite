@@ -6,7 +6,7 @@ import { Estimator } from "@/components/home/Estimator";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — Clearing Agency Nairobi" },
+      { title: "Services — HolivET Africa" },
       { name: "description", content: "Ocean, air, road freight, customs clearance and warehousing services in Kenya." },
     ],
   }),

@@ -10,7 +10,6 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entries = [
           { path: "/", priority: "1.0" },
           { path: "/services", priority: "0.9" },
-          { path: "/dashboard", priority: "0.8" },
           { path: "/about", priority: "0.7" },
           { path: "/contact", priority: "0.7" },
         ];

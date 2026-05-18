@@ -1,12 +1,8 @@
-const rows = [
-  { id: "MSKU7821934", route: "Shanghai → Nairobi ICD", mode: "Ocean", eta: "May 09", status: "In transit", tone: "bg-accent/15 text-accent-foreground" },
-  { id: "CMAU4421887", route: "Jebel Ali → Mombasa", mode: "Ocean", eta: "May 14", status: "Customs assessment", tone: "bg-primary/10 text-primary" },
-  { id: "AWB-176-44218", route: "Guangzhou → JKIA", mode: "Air", eta: "May 08", status: "Released", tone: "bg-success/15 text-success" },
-  { id: "TCLU9982110", route: "Mumbai → Mombasa", mode: "Ocean", eta: "May 22", status: "Manifest lodged", tone: "bg-muted text-muted-foreground" },
-  { id: "AWB-220-99812", route: "Istanbul → JKIA", mode: "Air", eta: "May 10", status: "Duty paid", tone: "bg-primary/10 text-primary" },
-];
+import { useShipments } from "./useShipments";
 
 export function ShipmentList() {
+  const { data: rows, isLoading, error } = useShipments();
+
   return (
     <div className="rounded-2xl border border-border bg-card shadow-soft overflow-hidden">
       <div className="px-6 py-5 border-b border-border flex items-center justify-between">
@@ -28,7 +24,21 @@ export function ShipmentList() {
             </tr>
           </thead>
           <tbody>
-            {rows.map((r) => (
+            {isLoading && (
+              <tr>
+                <td colSpan={5} className="px-6 py-10 text-center text-muted-foreground">
+                  Loading shipment data…
+                </td>
+              </tr>
+            )}
+            {error && (
+              <tr>
+                <td colSpan={5} className="px-6 py-10 text-center text-destructive">
+                  Unable to load shipments. Please refresh.
+                </td>
+              </tr>
+            )}
+            {rows?.map((r) => (
               <tr key={r.id} className="border-t border-border hover:bg-muted/30 transition">
                 <td className="px-6 py-4 font-semibold tabular-nums">{r.id}</td>
                 <td className="px-6 py-4 text-muted-foreground">{r.route}</td>

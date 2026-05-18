@@ -1,0 +1,31 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="900">
+      <stop offset="0%" stop-color="#08102E" />
+      <stop offset="100%" stop-color="#101B44" />
+    </linearGradient>
+    <linearGradient id="lineGlow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F2B93A" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#78B6FF" stop-opacity="0.15" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)" />
+  <circle cx="280" cy="220" r="160" fill="#2F4B8B" opacity="0.30" />
+  <circle cx="1290" cy="160" r="120" fill="#F2B93A" opacity="0.18" />
+  <path d="M80 640H980" stroke="url(#lineGlow)" stroke-width="24" stroke-linecap="round" />
+  <path d="M240 580H400V680H240V580Z" fill="#102058" stroke="#4D6FFF" stroke-width="6" />
+  <path d="M420 560H570V700H420V560Z" fill="#0E1D45" stroke="#A8C1FF" stroke-width="6" />
+  <path d="M953 608H1225" stroke="#E3B34A" stroke-width="18" stroke-linecap="round" />
+  <path d="M735 580H850V680H735V580Z" fill="#0F1D4A" stroke="#D0C694" stroke-width="6" />
+  <path d="M993 512L1116 512L1140 556H972L993 512Z" fill="#F8D376" />
+  <path d="M1150 400C1150 379.46 1166.46 363 1187 363H1267C1287.54 363 1304 379.46 1304 400V484H1150V400Z" fill="#3B4F8E" />
+  <path d="M1206 484V518" stroke="#78B6FF" stroke-width="14" stroke-linecap="round" />
+  <path d="M1060 325L1080 335L1060 345" stroke="#F2B93A" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M1076 335H1180" stroke="#F2B93A" stroke-width="10" stroke-linecap="round" />
+  <path d="M270 250L330 250" stroke="#78B6FF" stroke-width="10" stroke-linecap="round" />
+  <path d="M500 130L620 190" stroke="#F2B93A" stroke-width="16" stroke-linecap="round" />
+  <path d="M520 120L540 170" stroke="#78B6FF" stroke-width="12" stroke-linecap="round" />
+  <path d="M430 360C430 350 438 342 448 342H530C540 342 548 350 548 360V426C548 436 540 444 530 444H448C438 444 430 436 430 426V360Z" fill="#1E3162" />
+  <path d="M1300 240L1400 280" stroke="#F2B93A" stroke-width="14" stroke-linecap="round" />
+  <path d="M1320 195L1360 220" stroke="#78B6FF" stroke-width="12" stroke-linecap="round" />
+</svg>

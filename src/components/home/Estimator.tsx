@@ -1,5 +1,7 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { ArrowRight, ArrowLeft, Ship, Plane, Truck, Package, CheckCircle2, Clock } from "lucide-react";
+import { apiUrl } from "@/lib/api";
 
 type Mode = "ocean" | "air" | "road";
 
@@ -24,6 +26,24 @@ export function Estimator() {
     const labels = ["Manifest Lodged", "Customs Assessment", "Duty Settled", "Cargo Released", "Delivered to Door"];
     return labels.map((l, i) => ({ label: l, days: base[i] }));
   }, [mode]);
+
+  const estimateMutation = useMutation(async (payload: { origin: string; destination: string; weightKg: number }) => {
+    const res = await fetch(apiUrl("/api/estimate/"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      throw new Error("Estimate service unavailable");
+    }
+    return res.json();
+  });
+
+  useEffect(() => {
+    if (step === 3) {
+      estimateMutation.mutate({ origin, destination, weightKg: weight });
+    }
+  }, [step, origin, destination, weight]);
 
   const totalDays = timeline.reduce((a, b) => a + b.days, 0);
   const next = () => setStep((s) => Math.min(s + 1, 3));
@@ -143,6 +163,16 @@ export function Estimator() {
                     <div className="inline-flex items-center gap-2 rounded-xl bg-success/10 text-success px-3 py-1.5 text-sm font-medium">
                       <Clock className="h-4 w-4" /> Within SLA
                     </div>
+                  </div>
+
+                  <div className="mb-6 rounded-3xl border border-border bg-surface p-5 text-sm text-muted-foreground">
+                    {estimateMutation.isLoading
+                      ? "Requesting a HolivET Africa estimate..."
+                      : estimateMutation.error
+                      ? "Estimate service unavailable. Please try again."
+                      : estimateMutation.data
+                      ? `Estimated cost ${estimateMutation.data.currency} ${estimateMutation.data.estimatedCost.toFixed(2)} based on origin ${estimateMutation.data.origin} and destination ${estimateMutation.data.destination}.`
+                      : "Your cost estimate will appear here once you reach the final step."}
                   </div>
 
                   <div className="relative">

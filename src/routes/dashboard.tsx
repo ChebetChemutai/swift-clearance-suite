@@ -1,15 +1,17 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { SiteLayout } from "@/components/site/Layout";
 import { ShipmentTracker } from "@/components/dashboard/ShipmentTracker";
 import { DocumentVault } from "@/components/dashboard/DocumentVault";
 import { InvoiceSummary } from "@/components/dashboard/InvoiceSummary";
 import { StatsRow } from "@/components/dashboard/StatsRow";
 import { ShipmentList } from "@/components/dashboard/ShipmentList";
+import { getAuthToken } from "@/lib/auth";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Client Dashboard — Clearing Agency" },
+      { title: "Client Dashboard — HolivET Africa" },
       { name: "description", content: "Real-time shipment tracking, document vault, and invoicing for active cargo." },
     ],
   }),
@@ -17,6 +19,19 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 function Dashboard() {
+  const router = useRouter();
+  const token = getAuthToken();
+
+  useEffect(() => {
+    if (!token) {
+      router.navigate({ to: "/admin/login" });
+    }
+  }, [router, token]);
+
+  if (!token) {
+    return null;
+  }
+
   return (
     <SiteLayout>
       <section className="bg-gradient-mesh">

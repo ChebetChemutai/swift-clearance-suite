@@ -30,7 +30,7 @@ export default async function handler(req, res) {
       weightKg,
       estimatedCost,
       currency: "USD",
-      message: "This is a sample estimate. Replace with your pricing engine to use real data.",
+      message: "HolivET Africa estimated cost based on standard freight benchmarks.",
     }),
   );
 }

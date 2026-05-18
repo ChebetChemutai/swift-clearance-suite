@@ -11,10 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
+import { Route as AdminDashboardNewRouteImport } from './routes/admin.dashboard.new'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -24,6 +28,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -46,22 +55,45 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/admin/dashboard',
+  path: '/admin/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDashboardNewRoute = AdminDashboardNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => AdminDashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin/dashboard': typeof AdminDashboardRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/dashboard/new': typeof AdminDashboardNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin/dashboard': typeof AdminDashboardRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/dashboard/new': typeof AdminDashboardNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,8 +101,12 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
+  '/login': typeof LoginRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/admin/dashboard': typeof AdminDashboardRouteWithChildren
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/dashboard/new': typeof AdminDashboardNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -79,18 +115,36 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/dashboard'
+    | '/login'
     | '/services'
     | '/sitemap.xml'
+    | '/admin/dashboard'
+    | '/admin/login'
+    | '/admin/dashboard/new'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/dashboard' | '/services' | '/sitemap.xml'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/dashboard'
+    | '/login'
+    | '/services'
+    | '/sitemap.xml'
+    | '/admin/dashboard'
+    | '/admin/login'
+    | '/admin/dashboard/new'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/contact'
     | '/dashboard'
+    | '/login'
     | '/services'
     | '/sitemap.xml'
+    | '/admin/dashboard'
+    | '/admin/login'
+    | '/admin/dashboard/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -98,8 +152,11 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   DashboardRoute: typeof DashboardRoute
+  LoginRoute: typeof LoginRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  AdminDashboardRoute: typeof AdminDashboardRouteWithChildren
+  AdminLoginRoute: typeof AdminLoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +173,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -146,16 +210,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/admin/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/dashboard/new': {
+      id: '/admin/dashboard/new'
+      path: '/new'
+      fullPath: '/admin/dashboard/new'
+      preLoaderRoute: typeof AdminDashboardNewRouteImport
+      parentRoute: typeof AdminDashboardRoute
+    }
   }
 }
+
+interface AdminDashboardRouteChildren {
+  AdminDashboardNewRoute: typeof AdminDashboardNewRoute
+}
+
+const AdminDashboardRouteChildren: AdminDashboardRouteChildren = {
+  AdminDashboardNewRoute: AdminDashboardNewRoute,
+}
+
+const AdminDashboardRouteWithChildren = AdminDashboardRoute._addFileChildren(
+  AdminDashboardRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   DashboardRoute: DashboardRoute,
+  LoginRoute: LoginRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  AdminDashboardRoute: AdminDashboardRouteWithChildren,
+  AdminLoginRoute: AdminLoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,12 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { Trust } from "@/components/home/Trust";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Clearing Agency Nairobi" },
-      { name: "description", content: "22 years moving cargo across East Africa. Meet the team behind Kenya's most trusted C&F agent." },
+      { title: "About — HolivET Africa" },
+      { name: "description", content: "22 years moving cargo across East Africa. Meet the team behind HolivET Africa's trusted clearing and forwarding service." },
     ],
   }),
   component: About,
@@ -22,7 +21,7 @@ function About() {
         </h1>
         <div className="mt-10 prose prose-lg text-foreground/80 space-y-6 leading-relaxed">
           <p>
-            Founded in Mombasa and headquartered in Nairobi's Industrial Area, Clearing Agency began with a single
+            Founded in Mombasa and headquartered in Nairobi's Industrial Area, HolivET Africa began with a single
             customs broker and a fax machine. Today we're a 140-person operation moving 10,000+ containers a year for
             importers across Kenya, Uganda, Rwanda, South Sudan and the DRC.
           </p>
@@ -34,7 +33,6 @@ function About() {
           </p>
         </div>
       </section>
-      <Trust />
     </SiteLayout>
   );
 }

@@ -1,32 +1,72 @@
-import { Check, Anchor, FileSearch, Receipt, PackageCheck, Truck, Home } from "lucide-react";
+import { Check, Anchor, FileSearch, Receipt, PackageCheck, Truck, Home, ArrowUpRight } from "lucide-react";
+import { useMemo } from "react";
+import { useShipments } from "./useShipments";
 
 const steps = [
-  { label: "Manifest Lodged", date: "May 02 · 09:14", icon: Anchor, location: "Mombasa Port" },
-  { label: "Customs Assessment", date: "May 04 · 14:22", icon: FileSearch, location: "KRA iCMS" },
-  { label: "Duty Paid", date: "May 06 · 10:01", icon: Receipt, location: "KRA Settlement" },
-  { label: "Cargo Released", date: "May 07 · 16:45", icon: PackageCheck, location: "KPA Yard 18" },
-  { label: "En Route to Nairobi ICD", date: "In transit", icon: Truck, location: "Mombasa Rd, Mtito Andei", current: true },
-  { label: "Delivered", date: "Pending", icon: Home, location: "Industrial Area, Nairobi" },
+  { label: "Manifest Lodged", icon: Anchor, location: "Mombasa Port" },
+  { label: "Customs Assessment", icon: FileSearch, location: "KRA iCMS" },
+  { label: "Duty Paid", icon: Receipt, location: "KRA Settlement" },
+  { label: "Cargo Released", icon: PackageCheck, location: "KPA Yard 18" },
+  { label: "En Route to Nairobi ICD", icon: Truck, location: "Mombasa Rd, Mtito Andei" },
+  { label: "Delivered", icon: Home, location: "Industrial Area, Nairobi" },
 ];
 
+const statusMap: Record<string, string> = {
+  "Manifest lodged": "Manifest Lodged",
+  "Customs assessment": "Customs Assessment",
+  "Duty paid": "Duty Paid",
+  "Cargo released": "Cargo Released",
+  "In transit": "En Route to Nairobi ICD",
+  Delivered: "Delivered",
+};
+
 export function ShipmentTracker() {
-  const currentIndex = steps.findIndex((s) => s.current);
+  const { data: shipments, isLoading, error } = useShipments();
+  const activeShipment = useMemo(() => shipments?.find((shipment) => shipment.status === "In transit") ?? shipments?.[0], [shipments]);
+  const currentIndex = useMemo(() => {
+    if (!activeShipment) return 0;
+    const stepLabel = statusMap[activeShipment.status] ?? "Manifest Lodged";
+    return steps.findIndex((step) => step.label === stepLabel);
+  }, [activeShipment]);
+
   return (
     <div className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-soft">
       <div className="flex items-start justify-between flex-wrap gap-4">
         <div>
           <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Active shipment</div>
-          <div className="mt-1 text-2xl font-semibold tracking-tight">Container MSKU 7821934</div>
-          <div className="mt-1 text-sm text-muted-foreground">BL #MAEU2410098 · 40HC · Sahara Foods Ltd</div>
+          <div className="mt-1 text-2xl font-semibold tracking-tight">
+            {activeShipment ? `Container ${activeShipment.trackingId}` : "Loading shipment..."}
+          </div>
+          <div className="mt-1 text-sm text-muted-foreground">
+            {activeShipment
+              ? `${activeShipment.route} · ${activeShipment.mode} · ${activeShipment.customer}`
+              : "Fetching latest shipment status from HolivET Africa"}
+          </div>
         </div>
         <div className="inline-flex items-center gap-2 rounded-xl bg-accent/10 text-accent-foreground px-3.5 py-2 text-sm font-medium">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full rounded-full bg-accent opacity-75 animate-ping" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
           </span>
-          <span className="text-foreground">In transit · ETA May 09, 18:30</span>
+          <span className="text-foreground">
+            {activeShipment ? `${activeShipment.status} · ETA ${activeShipment.eta}` : isLoading ? "Loading status…" : error ? "Tracking unavailable" : "Preparing shipment"}
+          </span>
         </div>
       </div>
+
+      {activeShipment && (
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="text-sm text-muted-foreground">Live updates from the HolivET Africa operations desk.</div>
+          <a
+            href={activeShipment.trackingUrl}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-soft hover:bg-primary/90 transition"
+          >
+            Open external tracking <ArrowUpRight className="h-4 w-4" />
+          </a>
+        </div>
+      )}
 
       {/* Desktop horizontal timeline */}
       <div className="mt-10 hidden md:block">
@@ -56,8 +96,7 @@ export function ShipmentTracker() {
                   <div className={`mt-3 text-xs font-semibold ${active ? "text-foreground" : "text-muted-foreground"}`}>
                     {s.label}
                   </div>
-                  <div className="mt-1 text-[11px] text-muted-foreground">{s.date}</div>
-                  <div className="mt-0.5 text-[11px] text-muted-foreground/80">{s.location}</div>
+                  <div className="mt-1 text-[11px] text-muted-foreground">{s.location}</div>
                 </div>
               );
             })}
@@ -88,7 +127,7 @@ export function ShipmentTracker() {
                 <div className={`text-sm font-semibold ${active ? "text-foreground" : done ? "text-foreground" : "text-muted-foreground"}`}>
                   {s.label}
                 </div>
-                <div className="text-xs text-muted-foreground">{s.date} · {s.location}</div>
+                <div className="text-xs text-muted-foreground">{s.location}</div>
               </div>
             </div>
           );

@@ -1,13 +1,38 @@
 import { Search, ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const heroImages = [
+  "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80",
+];
 
 export function Hero() {
   const [tracking, setTracking] = useState("");
+  const [activeIndex, setActiveIndex] = useState(0);
+  const trackingUrl = tracking
+    ? `https://www.17track.net/en#nums=${encodeURIComponent(tracking)}`
+    : "https://www.17track.net/en";
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % heroImages.length);
+    }, 7000);
+    return () => window.clearInterval(interval);
+  }, []);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-hero text-primary-foreground">
-      {/* Subtle grid */}
+    <section
+      className="relative overflow-hidden text-primary-foreground"
+      style={{
+        backgroundImage:
+          `linear-gradient(rgba(3, 11, 40, 0.72), rgba(3, 11, 40, 0.72)), url('${heroImages[activeIndex]}')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div
         className="absolute inset-0 opacity-[0.07]"
         style={{
@@ -23,10 +48,10 @@ export function Hero() {
             Trusted by 800+ importers across East Africa
           </div>
           <h1 className="mt-6 text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.05] text-balance">
-            Global Logistics,{" "}
-            <span className="text-accent">Local Expertise.</span>
+            HolivET Africa delivers
+            <span className="text-accent"> clearing & forwarding.</span>
             <br />
-            <span className="text-primary-foreground/80 font-light">Seamless clearing & forwarding from Mombasa to Nairobi.</span>
+            <span className="text-primary-foreground/80 font-light">Seamless cargo movement from Mombasa to Nairobi and beyond.</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-primary-foreground/70 leading-relaxed">
             From manifest lodgement to final-mile delivery — we move your cargo through KRA, KEBS and KPA with
@@ -35,16 +60,16 @@ export function Hero() {
 
           <div className="mt-10 flex flex-wrap gap-3">
             <Link
-              to="/dashboard"
+              to="/services"
               className="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-sm font-semibold text-accent-foreground shadow-glow hover:shadow-elegant transition-all hover:-translate-y-0.5"
             >
-              Open Client Dashboard <ArrowRight className="h-4 w-4" />
+              Explore Services <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
-              to="/services"
+              to="/contact"
               className="inline-flex items-center gap-2 rounded-xl glass-dark px-6 py-3.5 text-sm font-semibold text-primary-foreground hover:bg-white/10 transition"
             >
-              Explore Services
+              Contact Sales
             </Link>
           </div>
         </div>
@@ -62,12 +87,14 @@ export function Hero() {
                   className="w-full bg-transparent text-sm placeholder:text-primary-foreground/50 text-primary-foreground focus:outline-none"
                 />
               </div>
-              <Link
-                to="/dashboard"
+              <a
+                href={trackingUrl}
+                target="_blank"
+                rel="noreferrer noopener"
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground hover:brightness-105 transition"
               >
                 Track Now <ArrowRight className="h-4 w-4" />
-              </Link>
+              </a>
             </div>
           </div>
           <div className="mt-4 flex items-center gap-2 text-xs text-primary-foreground/60">

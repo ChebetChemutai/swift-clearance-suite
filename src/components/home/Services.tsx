@@ -5,25 +5,25 @@ const services = [
     icon: Ship,
     title: "Ocean Freight",
     desc: "FCL & LCL via Mombasa Port. Maersk, MSC, CMA CGM partnerships.",
-    tag: "Sea",
+    tag: "Mombasa",
     image:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=900&q=80",
   },
   {
     icon: Plane,
     title: "Air Freight",
     desc: "Express clearance through JKIA cargo terminal — same-day release.",
-    tag: "Air",
+    tag: "JKIA",
     image:
-      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=80",
   },
   {
     icon: Truck,
     title: "Road Transport",
     desc: "Modern fleet for Mombasa–Nairobi–Kampala–Kigali corridor haulage.",
-    tag: "Land",
+    tag: "Kenya Route",
     image:
-      "https://images.unsplash.com/photo-1518546305925-2b78b90f3f57?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=900&q=80",
   },
   {
     icon: FileCheck2,
@@ -31,15 +31,15 @@ const services = [
     desc: "KRA iCMS entries, KEBS PVoC, duty optimization & AEO benefits.",
     tag: "Compliance",
     image:
-      "https://images.unsplash.com/photo-1581091215367-12dc9f9878a4?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=900&q=80",
   },
   {
     icon: Warehouse,
     title: "Warehousing",
     desc: "Bonded & general warehousing in Industrial Area & Athi River.",
-    tag: "Storage",
+    tag: "Local Storage",
     image:
-      "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=900&q=80",
   },
   {
     icon: FileCheck2,
@@ -47,7 +47,7 @@ const services = [
     desc: "Heavy lift, OOG and turnkey logistics for industrial projects.",
     tag: "Specialty",
     image:
-      "https://images.unsplash.com/photo-1470761867315-319b57bff6b4?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=900&q=80",
   },
 ];
 

@@ -3,10 +3,10 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 const heroImages = [
-  "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80",
-  "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1600&q=80",
-  "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1600&q=80",
-  "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1529074963764-98f45c47344b?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=1600&q=80",
 ];
 
 export function Hero() {
@@ -28,7 +28,7 @@ export function Hero() {
       className="relative overflow-hidden text-primary-foreground"
       style={{
         backgroundImage:
-          `linear-gradient(rgba(3, 11, 40, 0.72), rgba(3, 11, 40, 0.72)), url('${heroImages[activeIndex]}')`,
+          `linear-gradient(rgba(14, 52, 32, 0.72), rgba(12, 25, 22, 0.8)), url('${heroImages[activeIndex]}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

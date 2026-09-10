@@ -31,7 +31,9 @@ async function fetchShipments() {
 }
 
 export function useShipments() {
-  return useQuery<Shipment[], Error>(["shipments"], fetchShipments, {
+  return useQuery<Shipment[], Error>({
+    queryKey: ["shipments"],
+    queryFn: fetchShipments,
     staleTime: 1000 * 60,
     retry: 1,
   });

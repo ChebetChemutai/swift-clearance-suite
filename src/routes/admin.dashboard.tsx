@@ -61,12 +61,3 @@ function Dashboard() {
     </SiteLayout>
   );
 }
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/admin/dashboard/new')({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return <div>Hello "/admin/dashboard/new"!</div>
-}

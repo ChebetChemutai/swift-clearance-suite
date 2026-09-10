@@ -27,16 +27,18 @@ export function Estimator() {
     return labels.map((l, i) => ({ label: l, days: base[i] }));
   }, [mode]);
 
-  const estimateMutation = useMutation(async (payload: { origin: string; destination: string; weightKg: number }) => {
-    const res = await fetch(apiUrl("/api/estimate/"), {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) {
-      throw new Error("Estimate service unavailable");
-    }
-    return res.json();
+  const estimateMutation = useMutation({
+    mutationFn: async (payload: { origin: string; destination: string; weightKg: number }) => {
+      const res = await fetch(apiUrl("/api/estimate/"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        throw new Error("Estimate service unavailable");
+      }
+      return res.json();
+    },
   });
 
   useEffect(() => {
